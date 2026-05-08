@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.renren.project.dao.ProjectDao">
+
+    <resultMap id="BaseResultMap" type="io.renren.project.entity.Project">
+        <id column="id" property="id"/>
+        <result column="tenant_id" property="tenantId"/>
+        <result column="name" property="name"/>
+        <result column="description" property="description"/>
+        <result column="version" property="version"/>
+        <result column="page_count" property="pageCount"/>
+        <result column="status" property="status"/>
+        <result column="created_by" property="createdBy"/>
+        <result column="created_at" property="createdAt"/>
+        <result column="updated_at" property="updatedAt"/>
+        <result column="deleted" property="deleted"/>
+    </resultMap>
+
+    <select id="listByTenantId" resultMap="BaseResultMap">
+        SELECT * FROM project
+        WHERE tenant_id = #{tenantId} AND deleted = 0
+        ORDER BY created_at DESC
+    </select>
+
+    <select id="selectById" resultMap="BaseResultMap">
+        SELECT * FROM project WHERE id = #{id} AND deleted = 0
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO project (tenant_id, name, description, version, page_count, status, created_by, created_at, updated_at, deleted)
+        VALUES (#{tenantId}, #{name}, #{description}, #{version}, #{pageCount}, #{status}, #{createdBy}, #{createdAt}, #{updatedAt}, 0)
+    </insert>
+
+    <update id="update">
+        UPDATE project
+        SET name = #{name}, description = #{description}, version = #{version},
+            page_count = #{pageCount}, status = #{status}, updated_at = #{updatedAt}
+        WHERE id = #{id}
+    </update>
+
+    <update id="deleteById">
+        UPDATE project SET deleted = 1, updated_at = NOW() WHERE id = #{id}
+    </update>
+
+    <select id="countByTenantId" resultType="java.lang.Long">
+        SELECT COUNT(*) FROM project WHERE tenant_id = #{tenantId} AND deleted = 0
+    </select>
+
+    <select id="recentOperations" resultType="map">
+        SELECT '项目创建' as action, name as detail, created_at as time, '成功' as status, '' as model
+        FROM project WHERE tenant_id = #{tenantId} AND deleted = 0
+        ORDER BY created_at DESC LIMIT #{limit}
+    </select>
+
+</mapper>
