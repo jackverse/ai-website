@@ -1,1 +1,0 @@
-import{r as t}from"./request-3W3awFK3.js";function a(e){return t({url:"/ai/page/list",method:"get",params:{}})}function u(e){return t({url:`/ai/page/${e}`,method:"delete"})}function i(e){return t({url:`/ai/page/${e}/publish`,method:"put"})}export{u as d,a as g,i as p};
