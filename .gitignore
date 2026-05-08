@@ -20,11 +20,12 @@ target
 *.rar
 *.iml
 .idea
+node_modules/
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 docker/mysql
 docker/redis
-ai-editor/**
-ai-editor-web/**
+./ai-editor/
+./ai-editor-web/
 .claude/**

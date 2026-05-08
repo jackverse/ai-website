@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.renren.ai.dao.AiGenerateLogDao">
+    <select id="listByTenantId" resultType="io.renren.ai.entity.AiGenerateLog">
+        SELECT * FROM ai_generate_log
+        WHERE tenant_id = #{tenantId}
+        ORDER BY created_at DESC
+    </select>
+
+    <select id="listByUserId" resultType="io.renren.ai.entity.AiGenerateLog">
+        SELECT * FROM ai_generate_log
+        WHERE user_id = #{userId}
+        ORDER BY created_at DESC
+    </select>
+
+    <select id="recentList" resultType="io.renren.ai.entity.AiGenerateLog">
+        SELECT * FROM ai_generate_log
+        WHERE tenant_id = #{tenantId}
+        ORDER BY created_at DESC
+        LIMIT #{limit}
+    </select>
+</mapper>

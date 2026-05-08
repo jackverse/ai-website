@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.renren.ai.dao.AiModelConfigDao">
+
+    <select id="listByTenantId" resultType="io.renren.ai.entity.AiModelConfig">
+        SELECT * FROM ai_model_config
+        WHERE tenant_id = #{tenantId} AND deleted = 0
+        ORDER BY sort ASC
+    </select>
+
+    <select id="getById" resultType="io.renren.ai.entity.AiModelConfig">
+        SELECT * FROM ai_model_config
+        WHERE id = #{id} AND deleted = 0
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO ai_model_config (
+            tenant_id, name, display_name, type, endpoint, api_key, model,
+            timeout, is_default, is_enabled, sort, config_json, created_by
+        ) VALUES (
+            #{tenantId}, #{name}, #{displayName}, #{type}, #{endpoint}, #{apiKey}, #{model},
+            #{timeout}, #{isDefault}, #{isEnabled}, #{sort}, #{configJson}, #{createdBy}
+        )
+    </insert>
+
+    <update id="updateById">
+        UPDATE ai_model_config SET
+            name = #{name},
+            display_name = #{displayName},
+            type = #{type},
+            endpoint = #{endpoint},
+            api_key = #{apiKey},
+            model = #{model},
+            timeout = #{timeout},
+            is_default = #{isDefault},
+            is_enabled = #{isEnabled},
+            sort = #{sort},
+            config_json = #{configJson}
+        WHERE id = #{id}
+    </update>
+
+    <update id="clearDefault">
+        UPDATE ai_model_config SET is_default = 0 WHERE tenant_id = #{tenantId}
+    </update>
+
+    <update id="setDefault">
+        UPDATE ai_model_config SET is_default = 1 WHERE id = #{id}
+    </update>
+
+    <update id="setEnabled">
+        UPDATE ai_model_config SET is_enabled = #{isEnabled} WHERE id = #{id}
+    </update>
+
+    <update id="deleteById">
+        UPDATE ai_model_config SET deleted = 1 WHERE id = #{id}
+    </update>
+
+</mapper>
