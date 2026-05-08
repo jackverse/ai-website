@@ -28,4 +28,5 @@ docker/mysql
 docker/redis
 ai-editor/
 ai-editor-web/
-.claude/**
+.claude/
+docs/
