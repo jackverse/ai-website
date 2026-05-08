@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="io.renren.ai.dao.AiQuotaDao">
-    <select id="findByTenantId" resultType="io.renren.ai.entity.AiQuota">
-        SELECT * FROM ai_quota WHERE tenant_id = #{tenantId}
-    </select>
-</mapper>
