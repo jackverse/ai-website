@@ -131,6 +131,32 @@ CREATE TABLE IF NOT EXISTS `ai_model_config` (
     INDEX `idx_tenant` (`tenant_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='AI模型配置表';
 
+-- 生成记录表
+CREATE TABLE IF NOT EXISTS `ai_generate_log` (
+    `id`                  BIGINT PRIMARY KEY AUTO_INCREMENT COMMENT '主键ID',
+    `tenant_id`           BIGINT NOT NULL COMMENT '租户ID',
+    `user_id`             BIGINT NOT NULL COMMENT '用户ID',
+    `project_id`          BIGINT DEFAULT NULL COMMENT '项目ID',
+    `page_id`             BIGINT DEFAULT NULL COMMENT '页面ID',
+    `page_type`           TINYINT DEFAULT NULL COMMENT '页面类型: 1首页 2列表页 3详情页 4表单页 5单页',
+    `style`               VARCHAR(50) DEFAULT NULL COMMENT '风格: tech/simple/business/modern',
+    `platform`            VARCHAR(20) DEFAULT NULL COMMENT '目标端: pc/mobile/both',
+    `prompt`              TEXT NOT NULL COMMENT '用户需求描述',
+    `reference_image`     VARCHAR(500) DEFAULT NULL COMMENT '参考图片URL',
+    `model`               VARCHAR(50) DEFAULT NULL COMMENT '使用的模型',
+    `generated_code`      LONGTEXT DEFAULT NULL COMMENT '生成的代码',
+    `status`              TINYINT DEFAULT 1 COMMENT '状态: 0失败 1成功',
+    `error_msg`           VARCHAR(500) DEFAULT NULL COMMENT '错误信息',
+    `duration`            INT DEFAULT NULL COMMENT '耗时(毫秒)',
+    `quality_score`       TINYINT DEFAULT NULL COMMENT '质量评分: 1-5',
+    `created_at`          DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    INDEX `idx_tenant` (`tenant_id`),
+    INDEX `idx_user` (`user_id`),
+    INDEX `idx_project` (`project_id`),
+    INDEX `idx_page` (`page_id`),
+    INDEX `idx_created_at` (`created_at`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='AI生成记录表';
+
 -- 配额表
 CREATE TABLE IF NOT EXISTS `ai_quota` (
     `id`                  BIGINT PRIMARY KEY AUTO_INCREMENT COMMENT '主键ID',

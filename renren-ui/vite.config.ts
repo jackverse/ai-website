@@ -35,6 +35,16 @@ export default (config: UserConfig): UserConfigExport => {
         symbolId: "icon-[dir]-[name]"
       })
     ],
+    css: {
+      preprocessorOptions: {
+        less: {
+          lessOptions: {
+            math: "always",
+            compress: false
+          }
+        }
+      }
+    },
     build: {
       chunkSizeWarningLimit: 1024,
       commonjsOptions: {

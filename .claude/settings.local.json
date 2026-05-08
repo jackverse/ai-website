@@ -25,7 +25,11 @@
       "Bash(curl -s -o /dev/null -w \"HTTP %{http_code}\" http://localhost:8002/)",
       "Bash(curl -s -o /dev/null -w \"HTTP %{http_code}\" http://localhost:8081/)",
       "Bash(findstr \"808\")",
-      "Bash(curl:*)"
+      "Bash(curl:*)",
+      "Bash(findstr \"8002\")",
+      "Bash(dir \"D:\\\\openclaw\\\\code\\\\ai-website\\\\ai-editor\\\\src\\\\main\\\\resources\\\\\")",
+      "Bash(node -e \"const fs = require\\('fs'\\); const content = fs.readFileSync\\('src/views/Generate.vue', 'utf8'\\); const scriptMatch = content.match\\(/<script[^>]*>\\([\\\\s\\\\S]*?\\)<\\\\/script>/i\\); if \\(scriptMatch\\) { try { new Function\\(scriptMatch[1].replace\\(/import.*?from.*?;/g, ''\\).replace\\(/import.*?;/g, ''\\)\\); console.log\\('Script syntax OK'\\); } catch\\(e\\) { console.log\\('Script syntax error:', e.message\\); } }\")",
+      "Bash(mvn compile:*)"
     ]
   }
 }
